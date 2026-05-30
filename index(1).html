@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Gabstef</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+      <span id="current-time">9:41</span>
+      <span class="status-icons">&#9679; &#9679; &#9679;</span>
+    </div>
+
+    <!-- TELA 1: COBRAR -->
+    <div class="screen active" id="screen-cobrar">
+      <div class="app-header">
+        <div class="brand">
+          <div class="brand-logo">GS</div>
+          <span class="brand-name">GABSTEF</span>
+        </div>
+        <div class="header-sub">cobranças PIX</div>
+      </div>
+
+      <div class="amount-area">
+        <div class="amount-label">valor a cobrar</div>
+        <div class="amount-display">
+          <span class="currency">R$</span>
+          <span id="val-display">0,00</span>
+        </div>
+      </div>
+
+      <div class="numpad">
+        <button class="nk" data-n="1">1</button>
+        <button class="nk" data-n="2">2</button>
+        <button class="nk" data-n="3">3</button>
+        <button class="nk" data-n="4">4</button>
+        <button class="nk" data-n="5">5</button>
+        <button class="nk" data-n="6">6</button>
+        <button class="nk" data-n="7">7</button>
+        <button class="nk" data-n="8">8</button>
+        <button class="nk" data-n="9">9</button>
+        <button class="nk ghost"></button>
+        <button class="nk" data-n="0">0</button>
+        <button class="nk del" id="del-btn">&#9003;</button>
+      </div>
+
+      <button class="btn-primary" id="gerar-btn">
+        <span class="btn-icon">&#9783;</span> gerar PIX
+      </button>
+    </div>
+
+    <!-- TELA 2: QR CODE -->
+    <div class="screen" id="screen-qr">
+      <div class="app-header">
+        <button class="back-btn" data-back="screen-cobrar">&#8592; voltar</button>
+        <div class="header-title">PIX gerado</div>
+        <div style="width:60px"></div>
+      </div>
+
+      <div class="qr-center">
+        <div class="qr-box">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="150" height="150">
+            <rect x="6" y="6" width="42" height="42" rx="4" fill="none" stroke="#c9a84c" stroke-width="4"/>
+            <rect x="14" y="14" width="26" height="26" rx="2" fill="#c9a84c"/>
+            <rect x="72" y="6" width="42" height="42" rx="4" fill="none" stroke="#c9a84c" stroke-width="4"/>
+            <rect x="80" y="14" width="26" height="26" rx="2" fill="#c9a84c"/>
+            <rect x="6" y="72" width="42" height="42" rx="4" fill="none" stroke="#c9a84c" stroke-width="4"/>
+            <rect x="14" y="80" width="26" height="26" rx="2" fill="#c9a84c"/>
+            <rect x="72" y="62" width="10" height="10" fill="#c9a84c"/>
+            <rect x="86" y="62" width="10" height="10" fill="#c9a84c"/>
+            <rect x="100" y="62" width="10" height="10" fill="#c9a84c"/>
+            <rect x="72" y="76" width="10" height="10" fill="#c9a84c"/>
+            <rect x="100" y="76" width="10" height="10" fill="#c9a84c"/>
+            <rect x="72" y="90" width="10" height="10" fill="#c9a84c"/>
+            <rect x="86" y="90" width="10" height="10" fill="#c9a84c"/>
+            <rect x="72" y="104" width="10" height="10" fill="#c9a84c"/>
+            <rect x="100" y="104" width="10" height="10" fill="#c9a84c"/>
+            <rect x="56" y="14" width="10" height="10" fill="#c9a84c"/>
+            <rect x="56" y="28" width="10" height="10" fill="#c9a84c"/>
+            <rect x="56" y="72" width="10" height="10" fill="#c9a84c"/>
+            <rect x="56" y="86" width="10" height="10" fill="#c9a84c"/>
+            <rect x="56" y="100" width="10" height="10" fill="#c9a84c"/>
+          </svg>
+        </div>
+        <div class="qr-amount" id="qr-val">R$ 0,00</div>
+        <div class="qr-waiting">
+          <span class="pulse-dot"></span> aguardando pagamento...
+        </div>
+      </div>
+
+      <button class="btn-primary" id="simular-btn">&#9654; simular pagamento</button>
+      <button class="btn-secondary" style="margin-top:10px">&#10063; copiar chave PIX</button>
+    </div>
+
+    <!-- TELA 3: SUCESSO -->
+    <div class="screen" id="screen-sucesso">
+      <div class="success-center">
+        <div class="check-circle">&#10003;</div>
+        <div class="success-title">pagamento recebido</div>
+        <div class="success-value" id="suc-val">R$ 0,00</div>
+        <div class="success-time">agora mesmo</div>
+      </div>
+
+      <div class="day-summary">
+        <div>
+          <div class="ds-label">total do dia</div>
+          <div class="ds-value" id="suc-total">R$ 0,00</div>
+          <div class="ds-sub" id="suc-count">1 venda</div>
+        </div>
+        <div style="text-align:right">
+          <div class="ds-label">ticket médio</div>
+          <div class="ds-value" id="suc-ticket">R$ 0,00</div>
+        </div>
+      </div>
+
+      <button class="btn-primary" id="nova-btn">+ nova cobrança</button>
+    </div>
+
+    <!-- TELA 4: HISTÓRICO -->
+    <div class="screen" id="screen-hist">
+      <div class="app-header">
+        <div class="header-title">Histórico</div>
+        <div class="header-sub">hoje</div>
+      </div>
+
+      <div class="day-summary">
+        <div>
+          <div class="ds-label">total recebido</div>
+          <div class="ds-value" id="hist-total">R$ 0,00</div>
+        </div>
+        <div style="text-align:right">
+          <div class="ds-label">vendas</div>
+          <div class="ds-value" id="hist-count">0</div>
+        </div>
+      </div>
+
+      <div class="txn-list" id="txn-list">
+        <div class="empty-state">
+          Nenhuma venda ainda.<br>Faça sua primeira cobrança!
+        </div>
+      </div>
+
+      <div class="ai-card">
+        <div class="ai-tag">✦ resumo IA</div>
+        <div class="ai-text" id="ai-text">
+          Clique em "gerar relatório" para analisar suas vendas com IA.
+        </div>
+      </div>
+
+      <button class="btn-ai" id="ai-btn">✦ gerar relatório com IA</button>
+    </div>
+
+    <!-- NAV BAR -->
+    <div class="nav-bar">
+      <button class="nav-item active" data-nav="screen-cobrar">
+        <span class="nav-icon">&#9783;</span>
+        <span>cobrar</span>
+      </button>
+      <button class="nav-item" data-nav="screen-hist">
+        <span class="nav-icon">&#9776;</span>
+        <span>histórico</span>
+      </button>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
